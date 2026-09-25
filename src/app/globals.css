@@ -1,0 +1,96 @@
+@import "tailwindcss";
+
+/*
+ * 全域樣式（第二十九節：戶外高對比、字大、按鈕大）。
+ * - 只有淺色主題：戶外陽光下深色字＋淺色底最好讀，不跟隨系統深色模式。
+ * - 基準字級 17px（Tailwind 的 rem 尺寸跟著放大；h-14 ≈ 60px）。
+ * - 系統字型：不依賴 Google Fonts，iOS 用 PingFang TC、Android 用 Noto Sans TC、Windows 用微軟正黑體。
+ */
+
+@theme {
+  --font-sans:
+    system-ui, -apple-system, BlinkMacSystemFont, "PingFang TC", "Noto Sans TC", "Noto Sans CJK TC", "Microsoft JhengHei",
+    "Heiti TC", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --font-mono: ui-monospace, SFMono-Regular, Menlo, Consolas, "Liberation Mono", monospace;
+}
+
+:root {
+  color-scheme: light;
+  --app-bg: #eef2f7;
+  --app-fg: #0f172a;
+}
+
+html {
+  font-size: 106.25%;
+  -webkit-text-size-adjust: 100%;
+  text-size-adjust: 100%;
+  background: var(--app-bg);
+}
+
+body {
+  min-height: 100dvh;
+  background: var(--app-bg);
+  color: var(--app-fg);
+  font-family: var(--font-sans);
+  line-height: 1.5;
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+/* 按鈕與可點元素：避免 iOS 雙擊放大延遲 */
+button,
+a,
+[role="button"],
+[role="switch"],
+[role="tab"],
+[role="checkbox"] {
+  touch-action: manipulation;
+}
+
+/* 鍵盤操作時的清楚焦點（滑鼠／觸控不顯示） */
+:focus-visible {
+  outline-color: #1d4ed8;
+}
+
+/* ---- 倒數數字：等寬數字，跳秒時不晃動 ---- */
+@utility timer-digits {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum" 1;
+  letter-spacing: -0.01em;
+}
+
+/* ---- 瀏海／Home indicator 安全區（viewport-fit=cover） ---- */
+@utility pt-safe {
+  padding-top: env(safe-area-inset-top);
+}
+@utility pb-safe {
+  padding-bottom: env(safe-area-inset-bottom);
+}
+@utility pl-safe {
+  padding-left: env(safe-area-inset-left);
+}
+@utility pr-safe {
+  padding-right: env(safe-area-inset-right);
+}
+@utility px-safe {
+  padding-left: env(safe-area-inset-left);
+  padding-right: env(safe-area-inset-right);
+}
+@utility mb-safe {
+  margin-bottom: env(safe-area-inset-bottom);
+}
+/* 固定在底部的主要按鈕列：至少留 12px，再加上 Home indicator 高度 */
+@utility bottom-bar-safe {
+  padding-bottom: max(0.75rem, env(safe-area-inset-bottom));
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
