@@ -28,6 +28,13 @@
 
 技術上用 **Next.js（網站）＋ Supabase（資料庫與即時同步）＋ Vercel（部署）**，三個都有免費方案，一次宿營的量完全夠用。
 
+## Demo：
+
+
+https://github.com/user-attachments/assets/898b9ca0-da24-451c-91b4-5768e7e03866
+
+
+
 ---
 
 <a id="quickstart"></a>
